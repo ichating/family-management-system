@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+	<!-- 首页 -->
+	<welcome-file-list>
+		<welcome-file>/login.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<!-- 用户管理 -->
+	<servlet>
+		<servlet-name>userController</servlet-name>
+		<servlet-class>com.family.oa.controller.UserController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>userController</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 支出管理 -->
+	<servlet>
+		<servlet-name>repaymentController</servlet-name>
+		<servlet-class>com.family.oa.controller.RepaymentController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>repaymentController</servlet-name>
+		<url-pattern>*.out</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 贷款管理 -->
+	<servlet>
+		<servlet-name>loanController</servlet-name>
+		<servlet-class>com.family.oa.controller.LoanController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>loanController</servlet-name>
+		<url-pattern>*.go</url-pattern>		
+	</servlet-mapping>
+	
+	<!-- 错误跳转页面 -->
+	<error-page>
+	  	<exception-type>java.lang.NullPointerException</exception-type>
+	  	<location>/WEB-INF/error.jsp</location>
+	</error-page>
+</web-app>
