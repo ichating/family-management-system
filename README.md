@@ -18,5 +18,17 @@ this's family management system.
 ### 3、用户的简单CRUD
 ### 4、原生JDBC+Servlet+JSP
 
+## 技术选型：
+### V1.0版本：MySQL+Servlet+JSP
+### V2.0版本：MySQL+Spring+SpringMVC+JSP
+### V3.0版本：MySQL+JPA+SpringMVC+JSP
+### V4.0版本：MySQL+SpringBoot+Vue
+### 后期：接口开发统一采用Restful风格，前后段分离。
+### 中期：使用RabbitMQ、Redis、Nginx等中间件。
+### 最后：购买自己的独立云服务，采用微服务的方法进行部署。
+
 ## 后续更新：
 。。。
+
+
+一个永远不断学习的过程。
