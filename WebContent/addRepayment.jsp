@@ -38,6 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <label for="name">名称</label>
     					 <select name="name" class="form-control">
 						  			<option>请选择名称</option>
+						  			<option value="幺儿艺术照">幺儿艺术照</option>
 									<option value="百度钱包">百度钱包</option>
 									<option value="京东白条">京东白条</option>
 									<option value="蚂蚁花呗">蚂蚁花呗</option>
