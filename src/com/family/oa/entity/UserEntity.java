@@ -1,21 +1,24 @@
 package com.family.oa.entity;
 
 import java.sql.Date;
-
+/**
+ * 用户实体类
+ * @author Jole
+ *
+ */
 public class UserEntity {
-
+	/** 用户ID*/
 	private Integer id;
-	
+	/** 登录名*/
 	private String user_name;
-	
+	/** 用户名*/
 	private String name;
-	
+	/** 密码*/
 	private String user_password;
-	
+	/** 生日*/
 	private Date birthday;
-
+    /** 电话*/
 	private String tel;
-	
 	/** 描述*/
 	private String remarks;
 	/** 更新日期*/

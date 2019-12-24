@@ -8,29 +8,21 @@ import java.sql.Date;
  *
  */
 public class RepaymentEntity {
-	
 	/** 还款标识*/
 	private Integer id;
-	
 	/** 贷款机构名称（以后换成贷款机构标识）*/
 	private String name;
-	
 	/** 还款金额 */
 	private BigDecimal repayment_amount;
-
 	/** 支付日期 */
 	private Date update_time;
-	
 	/** 记账日期 */
 	private Date repayment_time;
-	
 	/**记账人 */
 	private String user_name;
-	
 	/**支付人 */
 	private String repayment_user;
-	
-	/** 描述*/
+	/** 备注*/
 	private String remarks;
 
 	public Integer getId() {

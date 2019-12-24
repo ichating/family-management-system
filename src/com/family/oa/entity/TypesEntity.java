@@ -2,14 +2,13 @@ package com.family.oa.entity;
 /**
  * 类型
  * @author Jole
- *
  */
 public class TypesEntity {
-
+	/** 类型ID*/
 	private Integer id;
-	
+	/** 类型名称*/
 	private String name;
-	
+	/** 备注*/
 	private String remark;
 
 	public Integer getId() {

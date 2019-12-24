@@ -2,30 +2,32 @@ package com.family.oa.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-
+/**
+ * 贷款实体类
+ * @author Jole
+ *
+ */
 public class LoanEntity {
-
+	/** 贷款ID*/
 	private Integer id;
-	
+	/** 贷款人*/
 	private String user;
-	
+	/** 类型*/
 	private String types;
-	
+	/** 贷款金额*/
 	private BigDecimal inMoney;
-	
+	/** 期数*/
 	private Integer repaymentDay;
-	
+	/** 贷款时间*/
 	private Date repaymentInDate;
-	
+	/** 还款时间*/
 	private Date repaymentOutDate;
-	
+	/** 还款金额*/
 	private BigDecimal outMoney;
-	
+	/** 备注*/
 	private String remark;
-	
 	/** 记账日期 */
 	private Date repayment_time;
-	
 	/**记账人 */
 	private String user_name;
 
