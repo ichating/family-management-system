@@ -21,7 +21,7 @@ public class UserDaoImplTest {
 	@Test
 	public void testFindAll() {
 		UserEntity user = new UserEntity();
-		List<UserEntity> userAll = userDao.findAll(user);
+		List<UserEntity> userAll = userDao.findAll();
 		System.out.println(userAll);
 	}
 

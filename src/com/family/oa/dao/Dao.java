@@ -62,7 +62,7 @@ public class Dao<T> {
 		Connection connection = null;
 		try {
 			connection = JdbcUtils.getConnection();
-			return queryRunner.query(connection, sql, new BeanListHandler<>(clazz),args);
+			return queryRunner.query(connection, sql, new BeanListHandler<T>(clazz),args);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {

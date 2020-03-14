@@ -14,8 +14,8 @@ public class UserServiceImpl implements UserService {
 		return userDao.login(user_name, user_password);
 	}
 	@Override
-	public List<UserEntity> findAll(UserEntity user) {
-		return userDao.findAll(user);
+	public List<UserEntity> findAll() {
+		return userDao.findAll();
 	}
 	@Override
 	public void save(UserEntity user) {
@@ -35,7 +35,10 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public void update(UserEntity user) {
-		userDao.update(user);;
+		userDao.update(user);
 	}
-
+	@Override
+	public List<UserEntity> findUserByNameOrTel(String name,String tel){
+		return userDao.findByNameOrTel(name,tel);
+	}
 }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.family.oa.dao.Dao;
@@ -44,10 +45,31 @@ public class UserDaoImpl extends Dao<UserEntity> implements UserDao {
 	}
 
 	@Override
-	public List<UserEntity> findAll(UserEntity user) {
-		String sql ="select id,user_name,name,user_password,birthday,tel,remarks,update_time from user where name like ?"+
-					"and tel like ?";
-		return findAll(sql,user.getName(),user.getTel());
+	public List<UserEntity> findAll() {
+		List<UserEntity> userList = new ArrayList<UserEntity>();
+		try {
+		connection = JdbcUtils.getConnection();
+		String sql = "select id,user_name,name,user_password,birthday,tel,remarks,update_time from user ";
+		preparedStatement = connection.prepareStatement(sql);
+		resultSet = preparedStatement.executeQuery(sql);
+		while(resultSet.next()) {
+			UserEntity user = new UserEntity();
+			user.setId(resultSet.getInt("id"));
+			user.setUser_name(resultSet.getString("user_name"));
+			user.setName(resultSet.getString("name"));
+			user.setUser_password(resultSet.getString("user_password"));
+			user.setBirthday(resultSet.getDate("birthday"));
+			user.setTel(resultSet.getString("tel"));
+			user.setRemarks(resultSet.getString("remarks"));
+			user.setUpdate_time(resultSet.getDate("update_time"));
+			userList.add(user);
+		}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtils.releaseConnection(connection);;
+		}
+		return userList;
 	}
 
 	@Override
@@ -76,9 +98,56 @@ public class UserDaoImpl extends Dao<UserEntity> implements UserDao {
 
 	@Override
 	public void update(UserEntity user) {
-		UserEntity oneUser = this.getOne(user.getId());
 		String sql = "update user set user_name=? , name=? , user_password=? , birthday=? , tel=?,remarks=?,update_time=? where id=?";
 		this.update(sql,user.getUser_name(),user.getName(),user.getUser_password(),user.getBirthday(),user.getTel(),user.getRemarks(),user.getUpdate_time(),user.getId());
 	}
 
+	@Override
+	public List<UserEntity> findByNameOrTel(String name,String tel){
+		List<UserEntity> userList = new ArrayList<UserEntity>();
+		try {
+			StringBuffer sb = new StringBuffer();
+			sb.append("select id,user_name,name,user_password,birthday,tel,remarks,update_time from user where  1=1 ");
+			if(name.length()>0&& tel.length()>0) {
+				sb.append("and name like ?");
+				sb.append("and tel like ?");
+			}
+			if(name.length()>0&& tel.length()==0) {
+				sb.append("and name like ?");
+			}
+			if(name.length()==0&& tel.length()>0) {
+				sb.append("and tel like ?");
+			}
+			connection = JdbcUtils.getConnection();
+			preparedStatement = connection.prepareStatement(sb.toString());
+			if(name.length()>0&& tel.length()>0) {
+				preparedStatement.setString(1, "%"+name+"%");
+				preparedStatement.setString(2, "%"+tel+"%");
+			}
+			if(name.length()>0&& tel.length()==0) {
+				preparedStatement.setString(1, "%"+name+"%");
+			}
+			if(name.length()==0&& tel.length()>0) {
+				preparedStatement.setString(1, "%"+tel+"%");
+			}
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				UserEntity user = new UserEntity();
+				user.setId(resultSet.getInt("id"));
+				user.setUser_name(resultSet.getString("user_name"));
+				user.setName(resultSet.getString("name"));
+				user.setUser_password(resultSet.getString("user_password"));
+				user.setBirthday(resultSet.getDate("birthday"));
+				user.setTel(resultSet.getString("tel"));
+				user.setRemarks(resultSet.getString("remarks"));
+				user.setUpdate_time(resultSet.getDate("update_time"));
+				userList.add(user);
+			}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				JdbcUtils.releaseConnection(connection);;
+			}
+		return userList;
+	}
 }

@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  <div class="col-md-10">
 	  		   <div class="row">
 					  <div class="col-md-11">
-					  	<form action="users.do" method="post">
+					  	<form action="findUserByNameOrTel.do" method="post">
 					  	<span class="glyphicon glyphicon-user"></span> 姓名:<input type="text" name="name">&nbsp;&nbsp;&nbsp;&nbsp;
 					  	<label for="user_name"><span class="glyphicon glyphicon-earphone"></span> 电话:<input type="text" name="tel">&nbsp;&nbsp;&nbsp;&nbsp;
 					  	<span class="glyphicon glyphicon-search"></span> <input type="submit" value="查 询">
@@ -59,10 +59,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<tr>
 						<td><%= user.getId() %></td>
 						<td><%= user.getUser_name() %></td>
-						<td><%= user.getName().substring(1, user.getName().length()-3)%></td>
+						<td><%= user.getName()%></td>
 						<td><%= user.getUser_password() %></td>
 						<td><%= user.getBirthday() %></td>
-						<td><%= user.getTel().substring(1, user.getTel().length()-3) %></td>
+						<td><%= user.getTel()%></td>
 						<td><%= user.getRemarks() %></td>
 						<td><%= user.getUpdate_time() %></td>
 						<td>

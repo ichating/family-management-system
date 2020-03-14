@@ -39,14 +39,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	 		<form action="updateUser.do" method="get" role="form">
 			 	 		<input type="hidden" class="form-control" name="userId" value="<%= user.getId() %>">
 			 	 		<input type="hidden" class="form-control" name="user_loginName" value="<%= user.getUser_name() %>">
-			 	 		<input type="hidden" class="form-control" name="user_name" value="<%= user.getName() %>">
 			 	 		<div class="form-group">
 							<label for="user_loginName">用户名:</label>
 							<input type="text" class="form-control" name="user_loginName" value="<%= user.getUser_name() %>" disabled>
 						</div>
 						<div class="form-group">
 							<label for="user_name">姓名:</label>
-							<input type="text" class="form-control" name="user_name" value="<%= user.getName().substring(2, user.getName().length()-4) %>" disabled>
+							<input type="text" class="form-control" name="user_name" value="<%=user.getName()%>">
 						</div>
 						<div class="form-group">
 							<label for="user_password">密码:</label>

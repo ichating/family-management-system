@@ -8,7 +8,7 @@ public interface UserService {
 
 	public UserEntity login(String user_name,String user_password);
 	
-	public List<UserEntity> findAll(UserEntity user);
+	public List<UserEntity> findAll();
 	
 	public void save(UserEntity user);
 
@@ -21,4 +21,11 @@ public interface UserService {
 	
 	/**通过用户ID，修改用户信息 */
 	public void update(UserEntity user);
+	/**
+	 * 模糊查询
+	 * @param name
+	 * @param tel
+	 * @return
+	 */
+	public List<UserEntity> findUserByNameOrTel(String name,String tel);
 }

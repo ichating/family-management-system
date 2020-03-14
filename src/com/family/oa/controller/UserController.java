@@ -60,17 +60,14 @@ public class UserController extends HttpServlet{
 	}
 	
 	/**查询所有用户 */
-	public void users(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse) throws ServletException, IOException{
-		String servletPath = httpServletRequest.getServletPath();
-//		System.out.println(servletPath);
-		String name = httpServletRequest.getParameter("name");
-		String tel=httpServletRequest.getParameter("tel");
-		UserEntity user = new UserEntity();
-		user.setName(name);
-		user.setTel(tel);
-		List<UserEntity> findAll = userService.findAll(user);
+	public void users(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse){
+		try {
+		List<UserEntity> findAll = userService.findAll();
 		httpServletRequest.setAttribute("findAll", findAll);
 		httpServletRequest.getRequestDispatcher("/users.jsp").forward(httpServletRequest, httpServletResponse);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/** 添加用户*/
@@ -85,7 +82,7 @@ public class UserController extends HttpServlet{
 		UserEntity user = new UserEntity();
 		user.setUser_name(user_name);
 		user.setUser_password(user_password);
-		user.setBirthday(birthday);
+		user.setBirthday(new Date(birthday.getTime()));
 		user.setTel(tel);
 		user.setName(name);
 		user.setRemarks(remarks);
@@ -117,7 +114,7 @@ public class UserController extends HttpServlet{
 		UserEntity user = userService.getOne(Integer.valueOf(id));
 		user.setUser_name(user_name);
 		user.setUser_password(user_password);
-		user.setBirthday(birthday);
+		user.setBirthday(new Date(birthday.getTime()));
 		user.setTel(tel);
 		user.setName(name);
 		user.setRemarks(remarks);
@@ -131,6 +128,19 @@ public class UserController extends HttpServlet{
 		UserEntity user = userService.getOne(Integer.valueOf(id));
 		httpServletRequest.setAttribute("findOne", user);
 		httpServletRequest.getRequestDispatcher("/updateUsers.jsp").forward(httpServletRequest, httpServletResponse);
+	}
+	
+	/**模糊查询 */
+	public void findUserByNameOrTel(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse){
+		try {
+			String name = httpServletRequest.getParameter("name");
+			String tel = httpServletRequest.getParameter("tel");
+		List<UserEntity> findAll = userService.findUserByNameOrTel(name,tel);
+		httpServletRequest.setAttribute("findAll", findAll);
+		httpServletRequest.getRequestDispatcher("/users.jsp").forward(httpServletRequest, httpServletResponse);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
