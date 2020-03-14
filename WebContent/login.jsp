@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="<%=basePath%>/static/bootstrap-3.3.5/dist/css/style.css">
 <script  type="text/javascript" src="<%=basePath%>/static/bootstrap-3.3.5/dist/js/jquery-1.12.1.js"></script>
 <script  type="text/javascript" src="<%=basePath%>/static/bootstrap-3.3.5/dist/js/bootstrap.js"></script>
-<!-- href：里面的路径是你导入在static文件夹里面下面bootstrap.min.css所在的路径，下面两个属性一样 -->
+<!-- href：里面的路径是你导入在static文件夹里面下面bootstrap.min.css所在的路径，下面两个属性一样,test -->
 <script type="text/javascript" src="<%=basePath%>/static/bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>/static/bootstrap-3.3.5/js/tests/vendor/jquery.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>/static/bootstrap-3.3.5/js/supersized.3.2.7.min.js"></script>
