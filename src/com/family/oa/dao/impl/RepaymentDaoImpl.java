@@ -19,6 +19,7 @@ public class RepaymentDaoImpl extends Dao<RepaymentEntity> implements RepaymentD
 	PreparedStatement preparedStatement = null;
 	ResultSet resultSet = null;
 	
+	
 	@Override
 	public void insert(String name,String repayment_amount,Date update_time,String repayment_user,String user_name,String remarks) {
 		String sql = "insert into repayment(name,repayment_amount,repayment_time,update_time ,repayment_user,user_name,remarks) values(?,?,?,?,?,?,?) ";

@@ -13,8 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.family.oa.entity.RepaymentEntity;
+import com.family.oa.entity.TypesEntity;
+import com.family.oa.entity.UserEntity;
 import com.family.oa.service.RepaymentService;
 import com.family.oa.service.impl.RepaymentServiceImpl;
+import com.family.oa.service.impl.TypesServiceImpl;
+import com.family.oa.service.impl.UserServiceImpl;
 /**
  * 支出管理
  * @author Jole
@@ -25,6 +29,8 @@ public class RepaymentController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	RepaymentService repaymentService = new RepaymentServiceImpl();
+	TypesServiceImpl type = new TypesServiceImpl();
+	UserServiceImpl user = new UserServiceImpl();
 	
 	public void doGet(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse) throws UnsupportedEncodingException {
 		httpServletRequest.setCharacterEncoding("UTF-8");
@@ -65,6 +71,17 @@ public class RepaymentController extends HttpServlet{
 	}
 	
 	/**
+	 * 带出类型列表数据
+	 */
+	public void dispatcherType(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse) throws ServletException, IOException{
+		List<TypesEntity> findAllTypes = type.findAll();
+		List<UserEntity> findAllUsers = user.findAll();
+		httpServletRequest.setAttribute("findAllTypes", findAllTypes);
+		httpServletRequest.setAttribute("findAllUsers", findAllUsers);
+		httpServletRequest.getRequestDispatcher("/addRepayment.jsp").forward(httpServletRequest, httpServletResponse);
+	}
+	
+	/**
 	 * 添加支出记录
 	 */
 	public void addRepayment(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) throws IOException{
@@ -85,7 +102,7 @@ public class RepaymentController extends HttpServlet{
 //			httpServletRequest.getSession().setAttribute("sucess", "添加失败！");
 //			httpServletResponse.sendRedirect("repayments.out");
 //		}
-		httpServletResponse.sendRedirect("repayments.out");
+//		httpServletResponse.sendRedirect("repayments.out");
 	}
 	
 	/**

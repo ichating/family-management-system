@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.family.oa.entity.RepaymentEntity" %>
+<%@ page import="com.family.oa.entity.TypesEntity" %>
+<%@ page import="com.family.oa.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
 <%
 String path = request.getContextPath();
@@ -20,7 +22,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="<%=basePath%>/static/bootstrap-3.3.5/js/tests/vendor/jquery.min.js"></script>
 </head>
 <body>
-
+		  	<%
+				List<TypesEntity> typesList = (List<TypesEntity>)request.getAttribute("findAllTypes"); 
+		  	    List<UserEntity> userList = (List<UserEntity>)request.getAttribute("findAllUsers");
+			%>
 	<div class="row">
 		 <div class="col-md-2">
 		  	<ul class="nav nav-pills nav-stacked">
@@ -32,35 +37,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</ul>
 		  </div>
 		  <div class="col-md-3">
-				
 				<form class="form-horizontal" action="addRepayment.out" method="get" role="form">
 					  <div class="form-group">
 					    <label for="name">名称</label>
     					 <select name="name" class="form-control">
-						  			<option>请选择名称</option>
-									<option value="百度钱包">百度钱包</option>
-									<option value="京东白条">京东白条</option>
-									<option value="蚂蚁花呗">蚂蚁花呗</option>
-									<option value="蚂蚁借呗">蚂蚁借呗</option>
-									<option value="下街气费">下街气费</option>
-									<option value="下街水费">下街水费</option>
-									<option value="下街电费">下街电费</option>
-									<option value="东升">东升</option>
-									<option value="超娃">超娃</option>
-									<option value="房贷本金">房贷本金</option>
-									<option value="房贷利息">房贷利息</option>
-									<option value="工行信使展期">工行信使展期</option>
-									<option value="米">米</option>
+    					 		<option>请选择名称</option>
+						  		<% 
+									for(TypesEntity type :typesList){
+								%>       <option value=<%=type.getName() %>><%=type.getName() %></option>
+								<% 
+									} 
+								%>
 						 </select> 
 					  </div>
 					  <div class="form-group">
 					    <label for="repayment_user">支付人</label>
 					    <select name="repayment_user" class="form-control" >
 					 		<option>请选择支付人</option>
-							<option value="朱晓武">朱晓武</option>
-							<option value="朱泽明">朱泽明</option>
-							<option value="邓凌">邓凌</option>
-							<option value="毛雪华">毛雪华</option>
+							<% 
+									for(UserEntity user :userList){
+								%>       <option value=<%=user.getName() %>><%=user.getName() %></option>
+								<% 
+									} 
+								%>
 						</select>
 					  </div>
 					   <div class="form-group">

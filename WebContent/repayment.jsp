@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  	</form>
 					  </div>
 					  <div class="col-md-1">
-					  <a href="/family/addRepayment.jsp" class="btn btn-primary btn-default btn-sm">添 加</a></div>
+					  <a href="dispatcherType.out" class="btn btn-primary btn-default btn-sm">添 加</a></div>
 				</div>
 			<%
 				List<RepaymentEntity> list = (List<RepaymentEntity>)request.getAttribute("findAll"); 
