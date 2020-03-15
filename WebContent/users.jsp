@@ -23,11 +23,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head> 
 <body>
 <div class="row">
-	<div class="col-md-4"></div>
-	<div class="col-md-4">
-	<h2>欢迎<%=request.getSession().getAttribute("userName").toString()%>登录家庭金融管理系统</h2>
+	<div class="col-md-12">
+	<h2 class="text-center">欢迎<%=request.getSession().getAttribute("userName").toString()%>登录家庭金融管理系统</h2>
 	</div>
-	<div class="col-md-4"></div>
 </div>
 <h1></h1>
 <div class="row">
@@ -51,17 +49,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	</form>
 		  </div>
 		  <div class="col-md-1">
-		  <a href="./addUsers.jsp" class="btn btn-primary btn-default btn-sm">添加</a></div>
+		  <a href="./addUsers.jsp" class="btn btn-primary btn-sm">添加</a></div>
 	    </div>
 	    
   		<%
 		List<UserEntity> list = (List<UserEntity>)request.getAttribute("findAll");
 	    %>
 	    
-		<table  class="table table-hover table-bordered table-condensed table-responsive">
+	    <div class="table-responsive">
+		<table  class="table table-striped table-hover table-condensed">
 			<thead>
 				<tr>
-					<th>编号</th><th>用户名</th><th>姓名</th><th>密码</th><th>生日</th><th>电话</th><th>备注</th><th>更新日期</th><th>操作</th>
+					<th>序号</th><th>用户名</th><th>姓名</th><th>密码</th><th>生日</th><th>电话</th><th>备注</th><th>更新日期</th><th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -78,8 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td><%= user.getRemarks() %></td>
 					<td><%= user.getUpdate_time() %></td>
 					<td>
-						<a href="delUser.do?userId=<%=user.getId() %>">删除</a>
-						<a href="findOne.do?userId=<%=user.getId() %>">修改</a>
+						<a class="btn btn-danger btn-sm" href="delUser.do?userId=<%=user.getId() %>">删除</a>
+						<a class="btn btn-warning btn-sm" href="findOne.do?userId=<%=user.getId() %>">修改</a>
 					</td>
 				</tr>
 				<% 
@@ -87,7 +86,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				%>
 			</tbody>
 		</table>
-     <div class="row">
+		<ul class="pagination">
+		  <li><a href="#">&laquo;</a></li>
+		  <li><a href="#">1</a></li>
+		  <li><a href="#">2</a></li>
+		  <li><a href="#">3</a></li>
+		  <li><a href="#">4</a></li>
+		  <li><a href="#">5</a></li>
+		  <li><a href="#">&raquo;</a></li>
+		</ul>
+	</div>
 </div>
 </body>
 </html>

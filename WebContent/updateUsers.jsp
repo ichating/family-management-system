@@ -22,11 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head> 
 <body>
 <div class="row">
-	<div class="col-md-4"></div>
-	<div class="col-md-4">
-	<h2>欢迎<%=request.getSession().getAttribute("userName").toString()%>登录家庭金融管理系统</h2>
+	<div class="col-md-12">
+	<h2 class="text-center">欢迎<%=request.getSession().getAttribute("userName").toString()%>登录家庭金融管理系统</h2>
 	</div>
-	<div class="col-md-4"></div>
 </div>
 <h1></h1>
 	<div class="row">
@@ -76,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<label for="update_time">更新日期:</label>
 							<input type="date" class="form-control" name="update_time" value="<%=user.getUpdate_time() %>" disabled>
 						</div>
-						<input type="submit" class="btn  btn-primary" value="修改">
+						<input type="submit" class="btn btn-danger" value="修改">
 						</form>
 				 	</div>
 				 </div>

@@ -22,11 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head> 
 <body>
 <div class="row">
-	<div class="col-md-4"></div>
-	<div class="col-md-4">
-	<h2>欢迎<%=request.getSession().getAttribute("userName").toString()%>登录家庭金融管理系统</h2>
+	<div class="col-md-12">
+	<h2 class="text-center">欢迎<%=request.getSession().getAttribute("userName").toString()%>登录家庭金融管理系统</h2>
 	</div>
-	<div class="col-md-4"></div>
 </div>
 <h1></h1>
 	<div class="row">
@@ -51,15 +49,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  	</form>
 			  </div>
 			  <div class="col-md-1">
-			  <a href="./addLoan.jsp" class="btn btn-primary btn-default btn-sm">添加</a></div>
+			  <a href="./addLoan.jsp" class="btn btn-primary btn-sm">添加</a></div>
 		</div>
 	  		<%
 				List<LoanEntity> loanList = (List<LoanEntity>)request.getAttribute("findLoanList"); 
 			%>
-			<table  class="table table-hover table-bordered table-condensed table-responsive">
+			
+			<div class="table-responsive">
+			<table  class="table table-striped table-hover table-condensed">
 				<thead>
 					<tr>
-						<th>编号</th><th>机构名称</th><th>贷款人</th><th>贷款金额</th><th>期数</th><th>贷款日期</th><th>还款金额</th><th>还款日期</th><th>记账人</th><th>更新日期</th><th>备注</th><th>操作</th>
+						<th>序号</th><th>机构名称</th><th>贷款人</th><th>贷款金额</th><th>期数</th><th>贷款日期</th><th>还款金额</th><th>还款日期</th><th>记账人</th><th>更新日期</th><th>备注</th><th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -87,6 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					%>
 				</tbody>
 			</table>
+			</div>
 	  <div class="row">
 </div>
 </body>

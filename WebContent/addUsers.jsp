@@ -22,11 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head> 
 <body>
 <div class="row">
-	<div class="col-md-4"></div>
-	<div class="col-md-4">
-	<h2>欢迎<%=request.getSession().getAttribute("userName").toString()%>登录家庭金融管理系统</h2>
+	<div class="col-md-12">
+	<h2 class="text-center">欢迎<%=request.getSession().getAttribute("userName").toString()%>登录家庭金融管理系统</h2>
 	</div>
-	<div class="col-md-4"></div>
 </div>
 <h1></h1>
 	<div class="row">
@@ -45,30 +43,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	 		<form action="addUser.do" method="get" role="form">
 			 	 		<div class="form-group">
 							<label for="user_loginName">用户名:</label>
-							<input type="text" class="form-control" name="user_loginName">
+							<input type="text" class="form-control input-sm" name="user_loginName">
 						</div>
 						<div class="form-group">
 							<label for="user_name">姓名:</label>
-							<input type="text" class="form-control" name="user_name">
+							<input type="text" class="form-control input-sm" name="user_name">
 						</div>
 						<div class="form-group">
 							<label for="user_password">密码:</label>
-							<input class="form-control" type="text" name="user_password">
+							<input class="form-control input-sm" type="text" name="user_password">
 						</div>
 						<div class="form-group">
 							<label for="user_birthday">生日:</label>
-							<input class="form-control" type="date" name="user_birthday">
+							<input class="form-control input-sm" type="date" name="user_birthday">
 						</div>
 						<div class="form-group">
 							<label for="user_tel">电话:</label>
-							<input type="text" class="form-control" name="user_tel">
+							<input type="text" class="form-control input-sm" name="user_tel">
 						</div>
 						<div class="form-group">
 							<label for="remarks">备注:</label>
-							<input type="text" class="form-control" name="remarks">
+							<input type="text" class="form-control input-sm" name="remarks">
 						</div>
 		
-						<input type="submit" class="btn  btn-primary" value="保存">
+						<input type="submit" class="btn btn-success btn-sm form-control" value="保存">
 						</form>
 				 	</div>
 				 </div>
