@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container">
     <div class="login-box">
         <div class="header title">
-            <h2>家庭OA管理系统</h2> 
+            <h2>家庭金融管理系统</h2> 
         </div>
         <form action="loginUser.do" method="post" id="loginForm">
             <div class="row">

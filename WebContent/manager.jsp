@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon" />
 <link rel="bookmark" href="./img/favicon.png" type="image/x-icon" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>家庭OA管理系统</title>
+<title>家庭金融管理系统</title>
 </head>
 <body>
 <div class="row">
