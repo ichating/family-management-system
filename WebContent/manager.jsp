@@ -28,11 +28,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  <li><a href="repayments.out"><span class="glyphicon glyphicon-credit-card"></span> 支出管理</a></li>
 		  <li ><a href="loans.go"><span class="glyphicon glyphicon-cutlery"></span> 贷款管理</a></li>
 		  <li ><a href="users.do"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
-		  <li><a href="/family"><span class="glyphicon glyphicon-cog"></span> 退出</a></li>
+		  <li><a href="logOut.do"><span class="glyphicon glyphicon-cog"></span> 退出</a></li>
 		</ul>
 	  </div>
 	  <div class="col-md-10">
-	  	  <h1>欢迎<%=request.getSession().getAttribute("userName").toString().substring(1, (request.getSession().getAttribute("userName").toString().length()-1)) %>登录</h1>
+	  	  <h1>欢迎<%=request.getSession().getAttribute("userName").toString()%>登录</h1>
 	  </div>
 	  <img src="/family/img/index.png" alt="..." class="img-circle">
 </body>

@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.family.oa.entity.UserEntity;
 import com.family.oa.service.impl.UserServiceImpl;
@@ -62,6 +63,11 @@ public class UserController extends HttpServlet{
 	/**查询所有用户 */
 	public void users(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse){
 		try {
+		HttpSession session = httpServletRequest.getSession();
+		Object attribute = session.getAttribute("userName");
+		if(attribute==null) {
+			httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+		}
 		List<UserEntity> findAll = userService.findAll();
 		httpServletRequest.setAttribute("findAll", findAll);
 		httpServletRequest.getRequestDispatcher("/users.jsp").forward(httpServletRequest, httpServletResponse);
@@ -71,7 +77,16 @@ public class UserController extends HttpServlet{
 	}
 	
 	/** 添加用户*/
-	protected void addUser(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) throws IOException{
+	protected void addUser(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse){
+		HttpSession session = httpServletRequest.getSession();
+		Object attribute = session.getAttribute("userName");
+		if(attribute==null) {
+			try {
+				httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		String user_name = httpServletRequest.getParameter("user_loginName");
 		String name = httpServletRequest.getParameter("user_name");
 		String user_password = httpServletRequest.getParameter("user_password");
@@ -90,55 +105,138 @@ public class UserController extends HttpServlet{
 		userService.save(user);
 		httpServletRequest.getSession().setAttribute("sucess", "添加成功！");
 		System.out.println(httpServletRequest.getLocalAddr());
-		httpServletResponse.sendRedirect("users.do");
+		try {
+			httpServletResponse.sendRedirect("users.do");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/** 删除用户*/
-	public void delUser(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse) throws ServletException, IOException {
-		String id = httpServletRequest.getParameter("userId");
-		userService.delete(Integer.valueOf(id));
-		httpServletRequest.setAttribute("ok", "删除成功");
-		httpServletRequest.getRequestDispatcher("users.do").forward(httpServletRequest, httpServletResponse);
+	public void delUser(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse){
+		HttpSession session = httpServletRequest.getSession();
+		Object attribute = session.getAttribute("userName");
+		if(attribute==null) {
+			try {
+				httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		try {
+			String id = httpServletRequest.getParameter("userId");
+			userService.delete(Integer.valueOf(id));
+			httpServletRequest.setAttribute("ok", "删除成功");
+			httpServletRequest.getRequestDispatcher("users.do").forward(httpServletRequest, httpServletResponse);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/** 修改用户*/
-	public void updateUser(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse) throws ServletException, IOException {
-		String user_name = httpServletRequest.getParameter("user_loginName");
-		String name = httpServletRequest.getParameter("user_name");
-		String user_password = httpServletRequest.getParameter("user_password");
-		Date birthday = Date.valueOf(httpServletRequest.getParameter("user_birthday"));
-		String tel = httpServletRequest.getParameter("user_tel");
-		String remarks = httpServletRequest.getParameter("remarks");
-		String id = httpServletRequest.getParameter("userId");
-		Date date = new Date(new java.util.Date().getTime());
-		UserEntity user = userService.getOne(Integer.valueOf(id));
-		user.setUser_name(user_name);
-		user.setUser_password(user_password);
-		user.setBirthday(new Date(birthday.getTime()));
-		user.setTel(tel);
-		user.setName(name);
-		user.setRemarks(remarks);
-		user.setUpdate_time(date);
-		userService.update(user);
-		httpServletRequest.getRequestDispatcher("users.do").forward(httpServletRequest, httpServletResponse);
+	public void updateUser(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse){
+		HttpSession session = httpServletRequest.getSession();
+		Object attribute = session.getAttribute("userName");
+		if(attribute==null) {
+			try {
+				httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		try {
+			String user_name = httpServletRequest.getParameter("user_loginName");
+			String name = httpServletRequest.getParameter("user_name");
+			String user_password = httpServletRequest.getParameter("user_password");
+			Date birthday = Date.valueOf(httpServletRequest.getParameter("user_birthday"));
+			String tel = httpServletRequest.getParameter("user_tel");
+			String remarks = httpServletRequest.getParameter("remarks");
+			String id = httpServletRequest.getParameter("userId");
+			Date date = new Date(new java.util.Date().getTime());
+			UserEntity user = userService.getOne(Integer.valueOf(id));
+			user.setUser_name(user_name);
+			user.setUser_password(user_password);
+			user.setBirthday(new Date(birthday.getTime()));
+			user.setTel(tel);
+			user.setName(name);
+			user.setRemarks(remarks);
+			user.setUpdate_time(date);
+			userService.update(user);
+			httpServletRequest.getRequestDispatcher("users.do").forward(httpServletRequest, httpServletResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void findOne(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse) throws ServletException, IOException {
-		String id = httpServletRequest.getParameter("userId");
-		UserEntity user = userService.getOne(Integer.valueOf(id));
-		httpServletRequest.setAttribute("findOne", user);
-		httpServletRequest.getRequestDispatcher("/updateUsers.jsp").forward(httpServletRequest, httpServletResponse);
+	public void findOne(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse){
+		HttpSession session = httpServletRequest.getSession();
+		Object attribute = session.getAttribute("userName");
+		if(attribute==null) {
+			try {
+				httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		try {
+			String id = httpServletRequest.getParameter("userId");
+			UserEntity user = userService.getOne(Integer.valueOf(id));
+			httpServletRequest.setAttribute("findOne", user);
+			httpServletRequest.getRequestDispatcher("/updateUsers.jsp").forward(httpServletRequest, httpServletResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**模糊查询 */
 	public void findUserByNameOrTel(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse){
+		HttpSession session = httpServletRequest.getSession();
+		Object attribute = session.getAttribute("userName");
+		if(attribute==null) {
+			try {
+				httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		try {
 			String name = httpServletRequest.getParameter("name");
 			String tel = httpServletRequest.getParameter("tel");
-		List<UserEntity> findAll = userService.findUserByNameOrTel(name,tel);
-		httpServletRequest.setAttribute("findAll", findAll);
-		httpServletRequest.getRequestDispatcher("/users.jsp").forward(httpServletRequest, httpServletResponse);
+			List<UserEntity> findAll = userService.findUserByNameOrTel(name,tel);
+			httpServletRequest.setAttribute("findAll", findAll);
+			httpServletRequest.getRequestDispatcher("/users.jsp").forward(httpServletRequest, httpServletResponse);
 		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void logOut(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse) {
+		httpServletRequest.getSession().setAttribute("userName", null);
+		try {
+			httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
