@@ -14,8 +14,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script  type="text/javascript" src="<%=basePath%>static/bootstrap-3.3.5/js/tests/vendor/jquery.min.js"></script>
 <script  type="text/javascript" src="<%=basePath%>static/bootstrap-3.3.5/dist/js/echarts-all.js"></script>
 <link rel="icon" href="/family/img/favicon.png" type="image/x-icon" />
-<link rel="shortcut icon" href="/family/img/favicon.png" type="image/x-icon" />
-<link rel="bookmark" href="/family/img/favicon.png" type="image/x-icon" />
+<link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon" />
+<link rel="bookmark" href="./img/favicon.png" type="image/x-icon" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>家庭OA管理系统</title>
 </head>
