@@ -20,7 +20,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>用户管理</title>
 </head> 
 <body>
-	<div class="row">
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+	<h2>欢迎<%=request.getSession().getAttribute("userName").toString()%>登录家庭金融管理系统</h2>
+	</div>
+	<div class="col-md-4"></div>
+</div>
+<h1></h1>
+<div class="row">
 	 <div class="col-md-2">
 	  	<ul class="nav nav-pills nav-stacked">
 		  <li ><a href="/family/manager.jsp"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
@@ -31,51 +39,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</ul>
 	  </div>
 
-	  <div class="col-md-10">
-	  		   <div class="row">
-					  <div class="col-md-11">
-					  	<form action="findUserByNameOrTel.do" method="post">
-					  	<span class="glyphicon glyphicon-user"></span> 姓名:<input type="text" name="name">&nbsp;&nbsp;&nbsp;&nbsp;
-					  	<label for="user_name"><span class="glyphicon glyphicon-earphone"></span> 电话:<input type="text" name="tel">&nbsp;&nbsp;&nbsp;&nbsp;
-					  	<span class="glyphicon glyphicon-search"></span> <input type="submit" value="查 询">
-					  	</form>
-					  </div>
-					  <div class="col-md-1">
-					  <a href="/family/addUsers.jsp" class="btn btn-primary btn-default btn-sm">添加</a></div>
-				</div>
-	  		<%
-				List<UserEntity> list = (List<UserEntity>)request.getAttribute("findAll");
-			%>
-			<table  class="table table-hover table-bordered table-condensed table-responsive">
-				<thead>
-					<tr>
-						<th>编号</th><th>用户名</th><th>姓名</th><th>密码</th><th>生日</th><th>电话</th><th>备注</th><th>更新日期</th><th>操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% 
-						for(UserEntity user :list){
-					%>
-					<tr>
-						<td><%= user.getId() %></td>
-						<td><%= user.getUser_name() %></td>
-						<td><%= user.getName()%></td>
-						<td><%= user.getUser_password() %></td>
-						<td><%= user.getBirthday() %></td>
-						<td><%= user.getTel()%></td>
-						<td><%= user.getRemarks() %></td>
-						<td><%= user.getUpdate_time() %></td>
-						<td>
-							<a href="delUser.do?userId=<%=user.getId() %>">删除</a>
-							<a href="findOne.do?userId=<%=user.getId() %>">修改</a>
-						</td>
-					</tr>
-					<% 
-						} 
-					%>
-				</tbody>
-			</table>
-	  <div class="row">
+     <div class="col-md-10">
+		<div class="row">
+		  <div class="col-md-11">
+		  	<form action="findUserByNameOrTel.do" method="post">
+		  	<span class="glyphicon glyphicon-user"></span> 姓名:<input type="text" name="name">&nbsp;&nbsp;&nbsp;&nbsp;
+		  	<label for="user_name"><span class="glyphicon glyphicon-earphone"></span> 电话:<input type="text" name="tel">&nbsp;&nbsp;&nbsp;&nbsp;
+		  	<span class="glyphicon glyphicon-search"></span> <input type="submit" value="查 询">
+		  	</form>
+		  </div>
+		  <div class="col-md-1">
+		  <a href="/family/addUsers.jsp" class="btn btn-primary btn-default btn-sm">添加</a></div>
+	    </div>
+	    
+  		<%
+		List<UserEntity> list = (List<UserEntity>)request.getAttribute("findAll");
+	    %>
+	    
+		<table  class="table table-hover table-bordered table-condensed table-responsive">
+			<thead>
+				<tr>
+					<th>编号</th><th>用户名</th><th>姓名</th><th>密码</th><th>生日</th><th>电话</th><th>备注</th><th>更新日期</th><th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% 
+					for(UserEntity user :list){
+				%>
+				<tr>
+					<td><%= user.getId() %></td>
+					<td><%= user.getUser_name() %></td>
+					<td><%= user.getName()%></td>
+					<td><%= user.getUser_password() %></td>
+					<td><%= user.getBirthday() %></td>
+					<td><%= user.getTel()%></td>
+					<td><%= user.getRemarks() %></td>
+					<td><%= user.getUpdate_time() %></td>
+					<td>
+						<a href="delUser.do?userId=<%=user.getId() %>">删除</a>
+						<a href="findOne.do?userId=<%=user.getId() %>">修改</a>
+					</td>
+				</tr>
+				<% 
+					} 
+				%>
+			</tbody>
+		</table>
+     <div class="row">
 </div>
 </body>
 </html>
