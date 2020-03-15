@@ -9,6 +9,7 @@
 </head>
 <body>
 你访问的页面走丢了～～～啦啦啦～～～
-<%=exception.getMessage() %>
+<%-- <%=exception.getMessage() %> --%>
+<a href="loginUser.do"><span class="glyphicon glyphicon-home"></span> 首页</a>
 </body>
 </html>

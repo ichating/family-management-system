@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="row">
 		 <div class="col-md-2">
 		  	<ul class="nav nav-pills nav-stacked">
-			  <li ><a href="/family/manager.jsp"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+			  <li ><a href="./manager.jsp"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
 			  <li class="active"><a href="repayments.out"><span class="glyphicon glyphicon-credit-card"></span> 支出管理</a></li>
 			  <li ><a href="loans.go"><span class="glyphicon glyphicon-cutlery"></span> 贷款管理</a></li>
 			  <li ><a href="users.do"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
