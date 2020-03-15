@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <a href="/family/addUsers.jsp" class="btn btn-primary btn-default btn-sm">添加</a></div>
 				</div>
 	  		<%
-				List<UserEntity> list = (List<UserEntity>)request.getAttribute("findAll"); 
+				List<UserEntity> list = (List<UserEntity>)request.getAttribute("findAll");
 			%>
 			<table  class="table table-hover table-bordered table-condensed table-responsive">
 				<thead>

@@ -93,7 +93,7 @@ public class RepaymentController extends HttpServlet{
 		HttpSession session = httpServletRequest.getSession();
 		Object attribute = session.getAttribute("userName");
 		String user_name = attribute.toString();
-		repaymentService.insert(name, repayment_amount,update_time ,repayment_user,user_name,remarks);
+		repaymentService.insert(name, repayment_amount,new Date(update_time.getTime()) ,repayment_user,user_name,remarks);
 //		if(n) {
 //			httpServletRequest.getSession().setAttribute("sucess", "添加成功！");
 //			System.out.println(httpServletRequest.getLocalAddr());
@@ -102,7 +102,7 @@ public class RepaymentController extends HttpServlet{
 //			httpServletRequest.getSession().setAttribute("sucess", "添加失败！");
 //			httpServletResponse.sendRedirect("repayments.out");
 //		}
-//		httpServletResponse.sendRedirect("repayments.out");
+		httpServletResponse.sendRedirect("repayments.out");
 	}
 	
 	/**

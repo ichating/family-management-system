@@ -17,12 +17,14 @@ import javax.servlet.http.HttpSession;
 import com.family.oa.entity.LoanEntity;
 import com.family.oa.entity.UserEntity;
 import com.family.oa.service.impl.LoanServiceImpl;
+import com.family.oa.service.impl.TypesServiceImpl;
 import com.family.oa.service.impl.UserServiceImpl;
 
 public class LoanController  extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	LoanServiceImpl loanService = new LoanServiceImpl();
 	UserServiceImpl userService = new UserServiceImpl();
+	TypesServiceImpl type = new TypesServiceImpl();
 	
 	public void doGet(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse) throws UnsupportedEncodingException {
 		httpServletRequest.setCharacterEncoding("UTF-8");

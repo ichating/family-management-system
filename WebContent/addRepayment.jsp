@@ -41,7 +41,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <div class="form-group">
 					    <label for="name">名称</label>
     					 <select name="name" class="form-control">
-    					 		<option>请选择名称</option>
 						  		<% 
 									for(TypesEntity type :typesList){
 								%>       <option value=<%=type.getName() %>><%=type.getName() %></option>
@@ -53,7 +52,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <div class="form-group">
 					    <label for="repayment_user">支付人</label>
 					    <select name="repayment_user" class="form-control" >
-					 		<option>请选择支付人</option>
 							<% 
 									for(UserEntity user :userList){
 								%>       <option value=<%=user.getName() %>><%=user.getName() %></option>
