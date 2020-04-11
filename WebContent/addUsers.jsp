@@ -31,9 +31,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 <div class="col-md-2">
 	  	<ul class="nav nav-pills nav-stacked">
 		  <li><a href="./manager.jsp"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
-		  <li><a href="repayments.out"><span class="glyphicon glyphicon-credit-card"></span> 支出管理</a></li>
+		  <li><a href="findRepaymentByPageServlet.out"><span class="glyphicon glyphicon-credit-card"></span> 支出管理</a></li>
 		  <li ><a href="loans.go"><span class="glyphicon glyphicon-cutlery"></span> 贷款管理</a></li>
-		  <li class="active"><a href="users.do"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
+		  <li class="active"><a href="findUserByPageServlet.do"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
 		  <li><a href="logOut.do"><span class="glyphicon glyphicon-cog"></span> 退出</a></li>
 		</ul>
 	  </div>

@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.family.oa.entity.PageBean;
 import com.family.oa.entity.UserEntity;
+import com.family.oa.service.UserService;
 import com.family.oa.service.impl.UserServiceImpl;
 /**
  * 用户管理
@@ -106,7 +108,7 @@ public class UserController extends HttpServlet{
 		httpServletRequest.getSession().setAttribute("sucess", "添加成功！");
 		System.out.println(httpServletRequest.getLocalAddr());
 		try {
-			httpServletResponse.sendRedirect("users.do");
+			httpServletResponse.sendRedirect("findUserByPageServlet.do");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,7 +134,7 @@ public class UserController extends HttpServlet{
 			String id = httpServletRequest.getParameter("userId");
 			userService.delete(Integer.valueOf(id));
 			httpServletRequest.setAttribute("ok", "删除成功");
-			httpServletRequest.getRequestDispatcher("users.do").forward(httpServletRequest, httpServletResponse);
+			httpServletRequest.getRequestDispatcher("findUserByPageServlet.do").forward(httpServletRequest, httpServletResponse);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -172,7 +174,7 @@ public class UserController extends HttpServlet{
 			user.setRemarks(remarks);
 			user.setUpdate_time(date);
 			userService.update(user);
-			httpServletRequest.getRequestDispatcher("users.do").forward(httpServletRequest, httpServletResponse);
+			httpServletRequest.getRequestDispatcher("findUserByPageServlet.do").forward(httpServletRequest, httpServletResponse);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -220,9 +222,21 @@ public class UserController extends HttpServlet{
 		try {
 			String name = httpServletRequest.getParameter("name");
 			String tel = httpServletRequest.getParameter("tel");
-			List<UserEntity> findAll = userService.findUserByNameOrTel(name,tel);
-			httpServletRequest.setAttribute("findAll", findAll);
-			httpServletRequest.getRequestDispatcher("/users.jsp").forward(httpServletRequest, httpServletResponse);
+			//获取数据
+	        String currentPage = httpServletRequest.getParameter("currentPage");
+	        String rows = httpServletRequest.getParameter("rows");
+	        if(null==currentPage||"".equals(currentPage)){
+	            currentPage="1";
+	        }
+	        if(null==rows||"".equals(rows)){
+	            rows="8";
+	        }
+	        //调用service
+	        UserService userService = new UserServiceImpl();
+	        PageBean<UserEntity> pageBean = userService.findUserByNameOrTel(Integer.parseInt(currentPage), Integer.parseInt(rows),name,tel);
+	        httpServletRequest.setAttribute("pageBean", pageBean);
+	        //转发
+		    httpServletRequest.getRequestDispatcher("/users.jsp").forward(httpServletRequest, httpServletResponse);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -232,6 +246,46 @@ public class UserController extends HttpServlet{
 		httpServletRequest.getSession().setAttribute("userName", null);
 		try {
 			httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**分页查询所有用户 */
+	public void findUserByPageServlet(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse){
+		HttpSession session = httpServletRequest.getSession();
+		Object attribute = session.getAttribute("userName");
+		if(attribute==null) {
+			try {
+				httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//获取数据
+        String currentPage = httpServletRequest.getParameter("currentPage");
+        String rows = httpServletRequest.getParameter("rows");
+        if(null==currentPage||"".equals(currentPage)){
+            currentPage="1";
+        }
+        if(null==rows||"".equals(rows)){
+            rows="8";
+        }
+        //调用service
+        UserService userService = new UserServiceImpl();
+        PageBean<UserEntity> pageBean = userService.findUserByPage(Integer.parseInt(currentPage), Integer.parseInt(rows));
+        httpServletRequest.setAttribute("pageBean", pageBean);
+        //转发
+        try {
+			httpServletRequest.getRequestDispatcher("/users.jsp").forward(httpServletRequest, httpServletResponse);
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

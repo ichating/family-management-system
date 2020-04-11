@@ -30,5 +30,11 @@ public interface UserDao {
 	public void update(UserEntity user);
 	
 	/** 模糊查询*/
-	public List<UserEntity> findByNameOrTel(String name,String tel);
+	public List<UserEntity> findByNameOrTel(int currentPage, int rows, String name,String tel);
+	
+	/** 查询当前页面的所有数据*/
+    List<UserEntity> findUserByPage(int currentPage, int rows);
+    
+	/** 总条数*/
+    int findTotalCount();
 }

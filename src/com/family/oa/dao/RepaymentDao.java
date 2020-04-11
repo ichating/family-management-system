@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.family.oa.entity.RepaymentEntity;
+import com.family.oa.entity.UserEntity;
 
 /**
  * 还款接口
@@ -21,11 +22,17 @@ public interface RepaymentDao {
 	 * 查询全部记录
 	 * @return
 	 */
-	public List<RepaymentEntity> findAll(RepaymentEntity repayment);
+	public List<RepaymentEntity> findAll(int currentPage, int rows,RepaymentEntity repayment);
 	/**
 	 * 删除记录
 	 * @param repaymentId
 	 * @return
 	 */
 	public void deleteRepayment(String repaymentId);
+	
+	/** 查询当前页面的所有数据*/
+    List<RepaymentEntity> findUserByPage(int currentPage, int rows);
+    
+	/** 总条数*/
+    int findTotalCount();
 }

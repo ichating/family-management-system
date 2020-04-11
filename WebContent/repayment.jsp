@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.family.oa.entity.RepaymentEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.family.oa.entity.PageBean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -31,9 +33,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 <div class="col-md-2">
 	  	<ul class="nav nav-pills nav-stacked">
 		  <li ><a href="./manager.jsp"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
-		  <li class="active"><a href="repayments.out"><span class="glyphicon glyphicon-credit-card"></span> 支出管理</a></li>
+		  <li class="active"><a href="findRepaymentByPageServlet.out"><span class="glyphicon glyphicon-credit-card"></span> 支出管理</a></li>
 		  <li ><a href="loans.go"><span class="glyphicon glyphicon-cutlery"></span> 贷款管理</a></li>
-		  <li ><a href="users.do"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
+		  <li ><a href="findUserByPageServlet.do"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
 		  <li><a href="logOut.do"><span class="glyphicon glyphicon-cog"></span> 退出</a></li>
 		</ul>
 	  </div>
@@ -51,11 +53,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <div class="col-md-1">
 					  <a href="dispatcherType.out" class="btn btn-primary btn-sm">添 加</a></div>
 				</div>
-			<%
-				List<RepaymentEntity> list = (List<RepaymentEntity>)request.getAttribute("findAll"); 
-			%>
+			  	<%
+			  		PageBean<RepaymentEntity> pageBean = (PageBean<RepaymentEntity>)request.getAttribute("pageBean");
+					List<RepaymentEntity> list = pageBean.getList();
+					Integer sumCount=pageBean.getTotalPage();
+				    %>
 	  		<div class="table-responsive">
-			<table class="table table-striped table-hover table-condensed" >
+			<table class="table table-striped table-hover table-condensed table-bordered" >
 				<thead>
 					<tr>
 						<th>序号</th><th>名称</th><th>金额</th><th>支付日期</th><th>支付人</th><th>记账人</th><th>备注</th><th>更新日期</th><th>操 &nbsp;作</th>
@@ -81,6 +85,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					%>
 				</tbody>
 			</table>
+			
+			<div style="float: left">
+                <nav>
+                    <ul class="pagination">
+                        <%-- 判断是否是第一页--%>
+                        <c:if test="${pageBean.currentPage==1}">
+                        <li class="disabled">
+                            </c:if>
+                            <c:if test="${pageBean.currentPage!=1}">
+                        <li>
+                            </c:if>
+                            <a href="findRepaymentByPageServlet.out?currentPage=${pageBean.currentPage-1}&rows=8"
+                               aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                            </a>
+                        </li>
+                       
+                       <c:forEach var="i" varStatus="s" step="1" begin="1" end="${pageBean.totalPage}">
+                            <c:if test="${pageBean.currentPage == i}">
+                                <li class="active">
+
+                                    <a href="findRepaymentByPageServlet.out?currentPage=${i}&rows=8"
+
+                                       name="li">${i}</a></li>
+                            </c:if>
+                            <c:if test="${pageBean.currentPage != i}">
+                                <li>
+                                    <a href="findRepaymentByPageServlet.out?currentPage=${i}&rows=8"
+                                       name="li">${i}</a></li>
+                            </c:if>
+                        </c:forEach>
+                        
+                        <%-- 判断是否是最后页--%>
+                        <c:if test="${pageBean.currentPage >= pageBean.totalPage}">
+                        <li class="disabled">
+                            </c:if>
+                            <c:if test="${pageBean.currentPage!=pageBean.totalPage}">
+                        <li>
+                            </c:if>
+                            <a href="findRepaymentByPageServlet.out?currentPage=${pageBean.currentPage+1}&rows=8"
+                               aria-label="Next">
+                                <span aria-hidden="true">下一页</span>
+                            </a>
+                        </li>
+                        <span style="font-size: 22px ;margin-left: 0px">共${pageBean.totalCount}条数据，共${pageBean.totalPage}页</span>
+                    </ul>
+                </nav>
+            </div>
+			
 			</div>
 	  </div>
 	</div>

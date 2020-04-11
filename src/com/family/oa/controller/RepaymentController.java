@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.family.oa.entity.PageBean;
 import com.family.oa.entity.RepaymentEntity;
 import com.family.oa.entity.TypesEntity;
 import com.family.oa.entity.UserEntity;
 import com.family.oa.service.RepaymentService;
+import com.family.oa.service.UserService;
 import com.family.oa.service.impl.RepaymentServiceImpl;
 import com.family.oa.service.impl.TypesServiceImpl;
 import com.family.oa.service.impl.UserServiceImpl;
@@ -63,6 +65,19 @@ public class RepaymentController extends HttpServlet{
 	 * 查询所有支出记录
 	 */
 	public void repayments(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse) throws ServletException, IOException{
+		HttpSession session = httpServletRequest.getSession();
+		Object attribute = session.getAttribute("userName");
+		if(attribute==null) {
+			try {
+				httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		RepaymentEntity repayment = new RepaymentEntity();
 		String name = httpServletRequest.getParameter("name");
 		String repayment_user = httpServletRequest.getParameter("repayment_user");
@@ -70,8 +85,17 @@ public class RepaymentController extends HttpServlet{
 		repayment.setName(name);
 		repayment.setRepayment_user(repayment_user);
 		repayment.setRemarks(remarks);
-		List<RepaymentEntity> findAll = repaymentService.findAll(repayment);
-		httpServletRequest.setAttribute("findAll", findAll);
+		//获取数据
+        String currentPage = httpServletRequest.getParameter("currentPage");
+        String rows = httpServletRequest.getParameter("rows");
+        if(null==currentPage||"".equals(currentPage)){
+            currentPage="1";
+        }
+        if(null==rows||"".equals(rows)){
+            rows="8";
+        }
+        PageBean <RepaymentEntity> pageBean = repaymentService.findAll(Integer.parseInt(currentPage), Integer.parseInt(rows),repayment);
+		httpServletRequest.setAttribute("pageBean", pageBean);
 		httpServletRequest.getRequestDispatcher("/repayment.jsp").forward(httpServletRequest, httpServletResponse);
 	}
 	
@@ -124,6 +148,45 @@ public class RepaymentController extends HttpServlet{
 //			httpServletRequest.setAttribute("ok", "删除失败");
 //			httpServletResponse.sendRedirect("repayments.out");
 //		}
+	}
+	
+	/**分页查询所有用户 */
+	public void findRepaymentByPageServlet(HttpServletRequest httpServletRequest,HttpServletResponse  httpServletResponse){
+		HttpSession session = httpServletRequest.getSession();
+		Object attribute = session.getAttribute("userName");
+		if(attribute==null) {
+			try {
+				httpServletRequest.getRequestDispatcher("/login.jsp").forward(httpServletRequest, httpServletResponse);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//获取数据
+        String currentPage = httpServletRequest.getParameter("currentPage");
+        String rows = httpServletRequest.getParameter("rows");
+        if(null==currentPage||"".equals(currentPage)){
+            currentPage="1";
+        }
+        if(null==rows||"".equals(rows)){
+            rows="8";
+        }
+        //调用service
+        PageBean<RepaymentEntity> pageBean = repaymentService.findUserByPage(Integer.parseInt(currentPage), Integer.parseInt(rows));
+        httpServletRequest.setAttribute("pageBean", pageBean);
+        //转发
+        try {
+			httpServletRequest.getRequestDispatcher("/repayment.jsp").forward(httpServletRequest, httpServletResponse);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

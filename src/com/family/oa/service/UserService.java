@@ -2,6 +2,7 @@ package com.family.oa.service;
 
 import java.util.List;
 
+import com.family.oa.entity.PageBean;
 import com.family.oa.entity.UserEntity;
 
 public interface UserService {
@@ -27,5 +28,12 @@ public interface UserService {
 	 * @param tel
 	 * @return
 	 */
-	public List<UserEntity> findUserByNameOrTel(String name,String tel);
+	public PageBean<UserEntity> findUserByNameOrTel(int currentPage, int rows,String name,String tel);
+	/**
+	 * 分页查询所有用户
+	 * @param currentPage
+	 * @param rows
+	 * @return
+	 */
+	PageBean<UserEntity> findUserByPage(int currentPage, int rows);
 }
